@@ -65,6 +65,12 @@ public class MavenContentValidator
             strictContentTypeValidation, contentSupplier, mimeRulesSource, contentName + ".xml", declaredContentType
         );
       }
+      else if (contentName.endsWith(".module")) {
+        // Note: this is due fact that Tika has no glob "*.module"
+        return defaultContentValidator.determineContentType(
+                strictContentTypeValidation, contentSupplier, mimeRulesSource, contentName + ".json", declaredContentType
+        );
+      }
       else if (isHashContentType(contentName)) {
         if (strictContentTypeValidation) {
           // hashes are small/simple, do it directly
